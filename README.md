@@ -91,7 +91,9 @@ name: s3 cloudfront ci/cd deployment
 on:
   workflow_dispatch:
   push:
-    branches: [whatever-branches-you-want] # the branch we want this to run on
+    branches:
+      - 'whatever-branches-you-want' # the branch we want this to run on
+      - 'another-branch-you-want'
 
 jobs:
   build:
@@ -120,7 +122,7 @@ jobs:
         run: npm i
 
       - name: copy files to s3
-        run: aws s3 sync . s3://${{secrets.AWS_S3_BUCKET}} # . is the current directory
+        run: aws s3 sync ./client s3://${{secrets.AWS_S3_BUCKET}} # .client is the client folder directory
 
       - name: Invalidate cache
         run: |
